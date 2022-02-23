@@ -1,0 +1,7 @@
+[package]
+name = "pi_guid"
+version = "0.1.0"
+authors = ["vmos <vmos@fairblock.io>"]
+
+[dependencies]
+pi_time = {path="../pi_time"}
