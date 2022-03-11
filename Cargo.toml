@@ -1,7 +1,12 @@
 [package]
 name = "pi_guid"
 version = "0.1.0"
-authors = ["vmos <vmos@fairblock.io>"]
+authors = ["luob <luob@gmail.com>"]
+edition = "2021"
+description = "An GUID Generator"
+repository = "https://github.com/GaiaWorld/pi_guid.git"
+license = "MIT OR Apache-2.0"
+keywords = ["pi", "guid"]
 
 [dependencies]
-pi_time = {path="../pi_time"}
+pi_time = "0.1"

@@ -1,17 +1,14 @@
-#![feature(integer_atomics)]
-/**
- * 全局唯一ID, 128位
- * {节点启动后的运行时间（纳秒ns）（8字节-584.9年），节点启动时间(单位s)（4字节-136年），节点编号（2字节），控制编号（2字节）}
- * 同一个GuidGen分配的guid，保证time不重复
- * 
- * 分布式系统可以利用控制编号来管理hash，进行一致hash命中
- */
+//! 全局唯一ID, 128位
+//! {节点启动后的运行时间（纳秒ns）（8字节-584.9年），节点启动时间(单位s)（4字节-136年），节点编号（2字节），控制编号（2字节）}
+//! 同一个GuidGen分配的guid，保证time不重复
+//! 
+//! 分布式系统可以利用控制编号来管理hash，进行一致hash命中
 
-extern crate time;
+#![feature(integer_atomics)]
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use time::{run_nanos, now_second};
+use pi_time::{run_nanos, now_second};
 
 // 全局唯一ID
 #[derive(Debug, Default, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
