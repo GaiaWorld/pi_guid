@@ -8,7 +8,7 @@
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use pi_time::{run_nanos, now_second};
+use pi_time::{run_nanos, start_secs};
 
 // 全局唯一ID
 #[derive(Debug, Default, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -57,7 +57,7 @@ impl GuidGen {
 	*/
 	pub fn new(node_time: u64, node_id: u16) -> Self {
 		let time = if node_time == 0 {
-			now_second()
+			start_secs()
 		} else {
 			node_time
 		};
