@@ -1,6 +1,6 @@
 [package]
 name = "pi_guid"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["luob <luob@gmail.com>"]
 edition = "2021"
 description = "An GUID Generator"
@@ -9,4 +9,4 @@ license = "MIT OR Apache-2.0"
 keywords = ["pi", "guid"]
 
 [dependencies]
-pi_time = "0.1"
+pi_time = "0.3.0"
