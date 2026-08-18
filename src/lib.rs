@@ -4,9 +4,10 @@
 use std::sync::atomic::{AtomicU64, Ordering};
 
 use pi_time::{run_nanos, start_secs};
+use pi_null::Null;
 
 /// 96 位全局唯一标识，由时间、节点和控制编号组成。
-#[derive(Debug, Default, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct Guid(u64, u16, u16);
 
 impl Guid {
@@ -26,14 +27,29 @@ impl Guid {
 		self.2
 	}
 }
-
+impl Null for Guid {
+    #[inline(always)]
+    fn null() -> Self {
+        Guid(0, 0, 0)
+    }
+    #[inline(always)]
+    fn is_null(&self) -> bool {
+        self.0 == 0
+    }
+}
 /// 生成 Guid 的线程安全生成器。
-#[derive(Default, Debug)]
+#[derive(Debug)]
 pub struct GuidGen {
 	runtime_ns: AtomicU64,
 	node_starttime_ns: u64,
 	node_id: u16,
 	ctrl_id: u16,
+}
+
+impl Default for GuidGen {
+	fn default() -> Self {
+		Self::new(0, 0, 0)
+	}
 }
 
 impl GuidGen {
@@ -133,3 +149,14 @@ impl GuidGen {
 		assert_eq!(map.len(), 1000000);
 
 	}
+
+#[test]
+fn test_guid_gen_default() {
+	let generator = GuidGen::default();
+
+	assert_eq!(generator.node_id(), 0);
+	assert_eq!(generator.ctrl_id(), 0);
+	let guid = generator.gen();
+	assert_eq!(guid.node_id(), 0);
+	assert_eq!(guid.ctrl_id(), 0);
+}
